@@ -12,5 +12,8 @@ return {
 		highlight_overrides = {
 			all = function(colors) return {} end,
 		},
+		integrations = {
+			notify = true,
+		},
 	},
 }
