@@ -4,4 +4,5 @@ vim.loader.enable()
 require("james.util").lazy_notify()
 
 -- configuration
+require("james.config.options")
 require("james.config.lazy")
