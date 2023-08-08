@@ -5,4 +5,5 @@ require("james.util").lazy_notify()
 
 -- configuration
 require("james.config.options")
+require("james.config.autocmds")
 require("james.config.lazy")
