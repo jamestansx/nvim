@@ -116,6 +116,7 @@ autocmd({ "FileType" }, {
 		"query",
 		"startuptime",
 		"tsplayground",
+		"vim",
 		"Navbuddy",
 		"TelescopePrompt",
 	},
