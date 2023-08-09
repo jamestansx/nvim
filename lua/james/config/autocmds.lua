@@ -1,4 +1,4 @@
-local autocmd = require("james.util").create_autocmd
+local autocmd = require("james.utils").create_autocmd
 
 autocmd({ "TextYankPost" }, {
 	desc = "Highlight text on yank",
@@ -17,23 +17,20 @@ autocmd({ "BufWritePre" }, {
 	group = "MkdirOnSave",
 	pattern = "*",
 	callback = function(args)
-		if args.match:match("^%w+://") then return end -- skip if it is a url
+		-- skip if it is a url
+		if args.match:match("^%w+://") then return end
+
 		local file = vim.loop.fs_realpath(args.match) or args.match
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
 	end,
 })
 
 autocmd({ "BufWritePre" }, {
-	desc = "Trim whitespace before saving file",
-	group = "TrimWhiteOnSave",
+	desc = "Trim trailing whitespace before saving file",
+	group = "TrimTrailingWhitespace",
 	pattern = "*",
 	callback = function()
-		if vim.b.editorconfig == nil then
-			local view = vim.fn.winsaveview()
-			vim.api.nvim_command("silent! undojoin")
-			vim.api.nvim_command("silent keepjumps keeppatterns %s/\\s\\+$//e")
-			vim.fn.winrestview(view)
-		end
+		if vim.tbl_isempty(vim.b.editorconfig) then vim.cmd("TrimTrailingWhitespace") end
 	end,
 })
 

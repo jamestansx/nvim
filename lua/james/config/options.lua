@@ -1,8 +1,5 @@
 local o = vim.opt
-local autocmd = require("james.util").create_autocmd
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+local autocmd = require("james.utils").create_autocmd
 
 --misc
 o.exrc = true
