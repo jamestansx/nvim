@@ -26,7 +26,7 @@ o.concealcursor = "nc" -- same as help page setting
 -- highlight me!
 o.cursorline = true -- cursor line
 o.showmatch = true -- matching bracket
-o.matchtime = 2
+o.matchtime = 3
 o.hlsearch = true -- search result
 o.synmaxcol = 300
 
@@ -40,8 +40,8 @@ o.spelloptions = { "camel" }
 o.spellsuggest = "best,5"
 
 -- scroll offset
-o.scrolloff = 5
-o.sidescrolloff = 5
+o.scrolloff = 3
+o.sidescrolloff = 3
 
 -- smart indentation
 o.cindent = true
