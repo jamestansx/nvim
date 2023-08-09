@@ -1,12 +1,11 @@
 local o = vim.opt
-local autocmd = require("james.utils").create_autocmd
+local autocmd = require("james.utils").editor.create_autocmd
 
 --misc
 o.exrc = true
-o.helpheight = 10
 o.virtualedit = "block"
 
--- general ui setting
+-- general UI setting
 o.number = true
 o.relativenumber = true
 o.termguicolors = true
@@ -24,10 +23,10 @@ o.conceallevel = 2
 o.concealcursor = "nc" -- same as help page setting
 
 -- highlight me!
-o.cursorline = true -- cursor line
-o.showmatch = true -- matching bracket
+o.cursorline = true
+o.showmatch = true
 o.matchtime = 3
-o.hlsearch = true -- search result
+o.hlsearch = true
 o.synmaxcol = 300
 
 -- confirm
@@ -64,17 +63,17 @@ autocmd({ "BufEnter" }, {
 	pattern = "*",
 	callback = function()
 		vim.opt_local.formatoptions = {
-			c = true, -- wrap comment using textwidth
-			q = true, -- allow formatting comment w/ gq
+			c = true, -- wrap comment using TextWidth
+			q = true, -- allow formatting comment with "gq"
 			r = true, -- continue comment when pressing enter
 			n = true, -- detect list for formatting
-			j = true, -- autoremove comments if possible
+			j = true, -- auto remove comments if possible
 		}
 	end,
 })
 
 -- quick timeout
-o.timeoutlen = 400
+o.timeoutlen = 500
 o.updatetime = 300
 o.redrawtime = 1000
 
@@ -105,7 +104,7 @@ o.pumblend = 10
 o.winblend = 10
 o.pumheight = 5 -- less is more
 
--- permenant undo list
+-- permanent undo list
 o.undofile = true
 o.undolevels = 100000
 
@@ -119,14 +118,14 @@ o.ruler = false
 o.showmode = false
 o.shortmess:append("WIcs") -- write file, intro message, ins-completion message, search notice
 
--- decent wildmenu
+-- decent WildMenu
 o.wildmode = { "longest:full", "full" }
 o.wildoptions:append({ "fuzzy" })
 o.wildignorecase = true
-o.wildignore:append({ ".git", ".hg", ".svn" }) -- vcs
+o.wildignore:append({ ".git", ".hg", ".svn" }) -- version control
 o.wildignore:append({ "*.swp", "*.lock" }) -- lock file
 o.wildignore:append({ "*.pyc", "*.pycache" }) -- python
-o.wildignore:append({ "**/node_modules/**" }) -- javascript
+o.wildignore:append({ "**/node_modules/**" }) -- JavaScript
 o.wildignore:append({ "*.o", "*.out", "*.obj" }) -- executable
 o.wildignore:append({ "*.bmp", "*.gif", "*.ico", "*.png", "*.jpeg", "*.webp" }) -- picture
 o.wildignore:append({ "*.mkv", "*.mov", "*.mp4", "*.webm", "*.webp" }) -- video
@@ -134,6 +133,7 @@ o.wildignore:append({ "*.mp3", "*.wav" }) -- song
 o.wildignore:append({ "*.zip", "*.tar.gz", "*.tar.bz2", "*.tar.xz" }) -- zip
 o.wildignore:append({ "*.doc", "*.docx", "*.pdf", "*.pptx" }) -- document
 o.wildignore:append({ "*.otf", "*.ttf", "*.woff" }) -- font
+
 -- diff opts
 o.diffopt:append({
 	"iwhite",
@@ -142,11 +142,12 @@ o.diffopt:append({
 	"algorithm:histogram",
 	"indent-heuristic",
 })
+
 -- folding
 o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
-o.foldmethod = "marker" -- TODO: treesitter?
+o.foldmethod = "marker" -- TODO: TreeSitter?
 o.fillchars:append({
 	fold = " ",
 	foldopen = "▽",
@@ -155,8 +156,10 @@ o.fillchars:append({
 })
 
 -- grep
-o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden --glob '!.git'"
-o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+if vim.fn.executable("rg") then
+	o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden --glob '!.git'"
+	o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+end
 
 -- session restore
 o.sessionoptions = { "buffers", "curdir", "folds", "tabpages", "terminal", "winsize" }

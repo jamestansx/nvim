@@ -1,4 +1,4 @@
-local autocmd = require("james.utils").create_autocmd
+local autocmd = require("james.utils").editor.create_autocmd
 
 autocmd({ "TextYankPost" }, {
 	desc = "Highlight text on yank",
@@ -17,7 +17,7 @@ autocmd({ "BufWritePre" }, {
 	group = "MkdirOnSave",
 	pattern = "*",
 	callback = function(args)
-		-- skip if it is a url
+		-- skip if it is a URL
 		if args.match:match("^%w+://") then return end
 
 		local file = vim.loop.fs_realpath(args.match) or args.match
@@ -34,16 +34,15 @@ autocmd({ "BufWritePre" }, {
 	end,
 })
 
--- TODO: not sure if I ever need this?
--- autocmd({ "BufReadPost" }, {
--- 	desc = "Restore last loc when opening a buffer",
--- 	group = "RestoreLastLoc",
--- 	callback = function()
--- 		local mark = vim.api.nvim_buf_get_mark(0, '"')
--- 		local lcount = vim.api.nvim_buf_line_count(0)
--- 		if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
--- 	end,
--- })
+autocmd({ "BufReadPost" }, {
+	desc = "Restore last loc when opening a buffer",
+	group = "RestoreLastLoc",
+	callback = function()
+		local mark = vim.api.nvim_buf_get_mark(0, '"')
+		local lcount = vim.api.nvim_buf_line_count(0)
+		if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
+	end,
+})
 
 autocmd({ "BufRead", "FileType" }, {
 	desc = "Reset undo persistence on certain files",
@@ -96,7 +95,7 @@ autocmd({ "WinEnter" }, {
 	end,
 })
 
--- TODO: use for all filetype that is only readable
+-- TODO: use for all file types that is only readable
 autocmd({ "FileType" }, {
 	desc = "Close certain filetypes with <q>",
 	group = "FtKeymapQuit",
@@ -104,18 +103,13 @@ autocmd({ "FileType" }, {
 		"checkhealth",
 		"help",
 		"lazy",
-		"lspinfo",
 		"man",
 		"nofile",
 		"notify",
 		"prompt",
 		"qf",
-		"query",
 		"startuptime",
-		"tsplayground",
 		"vim",
-		"Navbuddy",
-		"TelescopePrompt",
 	},
 	callback = function(args)
 		vim.bo[args.buf].buflisted = false

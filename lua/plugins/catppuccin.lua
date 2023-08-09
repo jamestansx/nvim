@@ -10,7 +10,11 @@ return {
 		term_colors = true,
 		transparent_background = true,
 		highlight_overrides = {
-			all = function(colors) return {} end,
+			all = function(colors)
+				local U = require("catppuccin.utils.colors")
+				local C = require("catppuccin.palettes").get_palette(vim.g.catppuccin_flavour)
+				return {}
+			end,
 		},
 		integrations = {
 			notify = true,
