@@ -50,10 +50,9 @@ local function trim_space(opts)
 	vim.api.nvim_buf_set_lines(buf, line1 - 1, line2, false, new_lines)
 end
 
-
 local M = {}
 
--- [[ editor helpers ]]
+-- [[ editor helpers ]] ::start
 
 -- delay notifications till vim.notify was replaced or after 500ms
 -- https://github.com/LazyVim/LazyVim/blob/566049aa4a26a86219dd1ad1624f9a1bf18831b6/lua/lazyvim/util/init.lua#L219
@@ -106,7 +105,9 @@ M.trim_white_space = vim.api.nvim_create_user_command(
 	{ nargs = "?", range = "%", addr = "lines", preview = trim_space_preview }
 )
 
--- [[ filesystem helpers ]]
+-- [[ editor helpers ]] ::end
+
+-- [[ filesystem helpers ]] ::start
 
 ---Compute root directory of path given based on pattern given
 ---@param fpath string?
@@ -139,20 +140,22 @@ function M.find_python_path(workspace, opts)
 
 	-- environment variable
 	local env_var = vim.env.VIRTUAL_ENV
-	if env_var then return M.join(env_var, "bin", "python") end
+	if env_var then return M.path_join(env_var, "bin", "python") end
 
 	-- TODO: should I scan downward too?
 	-- scan for venv folder pattern in upward direction
 	local result = M.find_pattern_ancestor(workspace, { opts.venv_patterns }, true)
-	if result then return M.join(result, "bin", "python") end
+	if result then return M.path_join(result, "bin", "python") end
 
 	-- fallback
 	return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
 end
 
-function M.join(...)
+function M.path_join(...)
 	local path_sep = jit and (jit.os == "Windows" and "\\" or "/") or "/"
 	return table.concat(vim.tbl_flatten({ ... }), path_sep)
 end
+
+-- [[ filesystem helpers ]] ::end
 
 return M
