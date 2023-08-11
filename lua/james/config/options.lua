@@ -55,7 +55,7 @@ o.wrap = true
 o.breakindent = true
 o.linebreak = true
 o.showbreak = "↪ "
-o.breakat = [[\ ,]]
+o.breakat = [[ ,]]
 
 -- format option
 autocmd({ "BufEnter" }, {
