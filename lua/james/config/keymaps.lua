@@ -10,8 +10,8 @@ end
 map({ "n", "v" }, "<Space>", "<Nop>")
 
 -- smart j k
-map("n", "j", "v:count ? 'j': 'gj'", { expr = true })
-map("n", "k", "v:count ? 'k': 'gk'", { expr = true })
+map({ "n", "v" }, "j", "v:count || mode(1)[0:1] == 'no' ? 'j': 'gj'", { expr = true })
+map({ "n", "v" }, "k", "v:count || mode(1)[0:1] == 'no' ? 'k': 'gk'", { expr = true })
 
 -- join line without moving cursor
 map("n", "J", "mzJ`z")

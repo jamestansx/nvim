@@ -74,7 +74,7 @@ autocmd({ "BufEnter" }, {
 
 -- quick timeout
 o.timeoutlen = 500
-o.updatetime = 300
+o.updatetime = 250
 o.redrawtime = 1000
 
 -- hidden characters
