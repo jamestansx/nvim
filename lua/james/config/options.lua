@@ -82,7 +82,7 @@ o.list = true
 o.listchars:append({
 	space = "·",
 	trail = "␣",
-	tab = "··»",
+	tab = "  »",
 	nbsp = "◻",
 	extends = "→",
 	precedes = "←",
