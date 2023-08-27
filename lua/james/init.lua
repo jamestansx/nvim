@@ -1,6 +1,3 @@
--- :help lua-loader
-vim.loader.enable()
-
 -- delay notifications until nvim-notify is loaded
 require("james.utils").editor.lazy_notify()
 
