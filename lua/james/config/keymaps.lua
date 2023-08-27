@@ -6,6 +6,10 @@ local map = function(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+local function goto_diagnostic(direction, level)
+	return function() vim.diagnostic["goto_" .. direction]({ severity = vim.diagnostic.severity[level] }) end
+end
+
 -- why not?
 map({ "n", "v" }, "<Space>", "<Nop>")
 
@@ -71,3 +75,12 @@ map("n", "<M-3>", "3<C-w>w", { desc = "Switch to window tag 3" })
 map("n", "<M-4>", "4<C-w>w", { desc = "Switch to window tag 4" })
 map("n", "<M-5>", "5<C-w>w", { desc = "Switch to window tag 5" })
 map("n", "<M-6>", "6<C-w>w", { desc = "Switch to window tag 6" })
+
+-- diagnostic
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "[C]ode [D]iagnostic" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto previous [D]iagnostic" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next [D]iagnostic" })
+map("n", "[e", goto_diagnostic("prev", "ERROR"), { desc = "Goto previous [E]rror" })
+map("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Goto next [E]rror" })
+map("n", "[w", goto_diagnostic("prev", "WARN"), { desc = "Goto previous [W]arn" })
+map("n", "]w", goto_diagnostic("next", "WARN"), { desc = "Goto next [W]arn" })

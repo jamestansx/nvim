@@ -165,3 +165,11 @@ end
 o.sessionoptions = { "buffers", "curdir", "folds", "tabpages", "terminal", "winsize" }
 o.viewoptions = { "folds", "cursor", "curdir", "localoptions" }
 o.jumpoptions = { "stack", "view" }
+
+-- diagnostics
+vim.diagnostic.config({
+	virtual_text = { source = "if_many" },
+	signs = true,
+	severity_sort = true,
+	update_in_insert = true,
+})
