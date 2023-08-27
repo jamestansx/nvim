@@ -30,7 +30,12 @@ autocmd({ "BufWritePre" }, {
 	group = "TrimTrailingWhitespace",
 	pattern = "*",
 	callback = function()
-		if vim.tbl_isempty(vim.b.editorconfig) then vim.cmd("TrimTrailingWhitespace") end
+		if vim.tbl_isempty(vim.b.editorconfig) then
+			local view = vim.fn.winsaveview()
+			vim.api.nvim_command("silent! undojoin")
+			vim.api.nvim_command("silent keepjumps keeppatterns %s/\\s\\+$//e")
+			vim.fn.winrestview(view)
+		end
 	end,
 })
 
