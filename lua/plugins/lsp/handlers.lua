@@ -1,7 +1,6 @@
 local M = {}
 
 local function remove_doc(res)
-	if res == nil then return res end
 	for i = 1, #res.signatures do
 		if res.signatures[i] and res.signatures[i].documentation then
 			if res.signatures[i].documentation.value then
@@ -40,12 +39,46 @@ local function make_floating_popup_option(winid)
 	}
 end
 
--- TODO: show all available signatures for function overload
+-- adapted from neovim core:
+-- https://github.com/neovim/neovim/blob/cffdf102d4f01fe5675c389eb80bf55daa62697a/runtime/lua/vim/lsp/handlers.lua#L446
 M.signature_help = function(_, result, ctx, config)
-	local bufnr, winid = vim.lsp.handlers.signature_help(_, remove_doc(result), ctx, config)
-	if winid then vim.api.nvim_win_set_config(winid, make_floating_popup_option(winid)) end
+	config = config or {}
+	config.focus_id = ctx.method
+	if vim.api.nvim_get_current_buf() ~= ctx.bufnr then return end
+	if not (result and result.signatures and result.signatures[1]) then
+		if config.silent ~= true then print("No signature help available") end
+		return
+	end
+	local client = vim.lsp.get_client_by_id(ctx.client_id)
+	local triggers = vim.tbl_get(client.server_capabilities, "signatureHelpProvider", "triggerCharacters")
+	local ft = vim.api.nvim_buf_get_option(ctx.bufnr, "filetype")
 
-	return bufnr, winid
+	local hl = {}
+	local lines = {}
+	result = result and remove_doc(result)
+
+	-- concat all available signatures
+	for i = 0, #result.signatures - 1 do
+		result.activeSignature = i
+		local l, h = vim.lsp.util.convert_signature_help_to_markdown_lines(result, ft, triggers)
+		l = vim.lsp.util.trim_empty_lines(l)
+		if vim.tbl_isempty(l) and i == 0 then
+			if config.silent ~= true then print("No signature help available") end
+			return
+		elseif not vim.tbl_isempty(l) then
+			table.insert(lines, l)
+			hl[i + 1] = h
+		end
+	end
+
+	local fbuf, fwin = vim.lsp.util.open_floating_preview(vim.tbl_flatten(lines), "markdown", config)
+	if hl then
+		for i = 1, #hl do
+			vim.api.nvim_buf_add_highlight(fbuf, -1, "LspSignatureActiveParameter", i - 1, unpack(hl[i]))
+		end
+	end
+	if fwin then vim.api.nvim_win_set_config(fwin, make_floating_popup_option(fwin)) end
+	return fbuf, fwin
 end
 
 return M
