@@ -29,8 +29,8 @@ function M.on_attach(_, bufnr)
 	map("n", "<leader>ds", vim.lsp.buf.document_symbol, { has = "textDocument/documentSymbol", desc = "[D]ocument [S]ymbols" })
 	map("n", "<leader>ws", vim.lsp.buf.workspace_symbol, { has = "workspace/symbol", desc = "[W]orkspace [S]ymbols" })
 
-	map("n", "K", vim.lsp.buf.hover, { has = "hover", desc = "Hover Documentation" })
-	map("n", "<C-k>", vim.lsp.buf.signature_help, { has = "textDocument/signatureHelp", desc = "Signature Documentation" })
+	map("n", "K", vim.lsp.buf.hover, { has = "textDocument/hover", desc = "Hover Documentation" })
+	map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { has = "textDocument/signatureHelp", desc = "Signature Documentation" })
 
 	map("n", "<leader>ca", vim.lsp.buf.code_action, { has = "textDocument/codeAction", desc = "[C]ode [A]ction" })
 	map("n", "<leader>cr", vim.lsp.buf.rename, { has = "textDocument/rename", desc = "[C]ode [R]ename" })
