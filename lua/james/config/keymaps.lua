@@ -69,9 +69,9 @@ map("n", "<leader>>", "v:count ? '<C-w>>' : '4<C-w>>'", { expr = true })
 map("n", "<leader><", "v:count ? '<C-w><' : '4<C-w><'", { expr = true })
 
 -- diagnostic
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "[C]ode [D]iagnostic" })
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto previous [D]iagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next [D]iagnostic" })
+map("n", "<leader>df", vim.diagnostic.open_float, { desc = "[D]iagnostic [F]loat" })
+map("n", "<leader>dn", vim.diagnostic.goto_prev, { desc = "Goto [P]revious [D]iagnostic" })
+map("n", "<leader>dp", vim.diagnostic.goto_next, { desc = "Goto [N]ext [D]iagnostic" })
 map("n", "[e", goto_diagnostic("prev", "ERROR"), { desc = "Goto previous [E]rror" })
 map("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Goto next [E]rror" })
 map("n", "[w", goto_diagnostic("prev", "WARN"), { desc = "Goto previous [W]arn" })
