@@ -78,7 +78,7 @@ autocmd({ "WinLeave" }, {
 	desc = "Toggle cursorline on switching window",
 	group = "ToggleCursorLine",
 	pattern = "*",
-	callback = function(args)
+	callback = function()
 		local cl = vim.wo.cursorline
 		if cl then
 			vim.api.nvim_win_set_var(0, "_toggleCursorLine", cl)
@@ -91,7 +91,7 @@ autocmd({ "WinEnter" }, {
 	desc = "Toggle cursorline on switching window",
 	group = "ToggleCursorLine",
 	pattern = "*",
-	callback = function(args)
+	callback = function()
 		local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "_toggleCursorLine")
 		if ok and cl then
 			vim.wo.cursorline = true
