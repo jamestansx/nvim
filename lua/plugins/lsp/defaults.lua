@@ -5,8 +5,14 @@ M.on_attach = function(client, bufnr)
 	require("plugins.lsp.keymaps").on_attach(client, bufnr)
 end
 
-M.capabilities = (function()
-	return vim.lsp.protocol.make_client_capabilities()
+M.capabilities = (function() return vim.lsp.protocol.make_client_capabilities() end)()
+
+M.handlers = (function()
+	local handlers = vim.lsp.handlers
+
+	handlers["textDocument/signatureHelp"] = require("plugins.lsp.handlers").signature_help
+
+	return handlers
 end)()
 
 return M
