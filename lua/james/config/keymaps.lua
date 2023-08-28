@@ -62,12 +62,6 @@ map("n", "<leader><leader>", "<C-^>")
 -- select pasted text
 map("n", "<leader>gp", "`[v`]", { desc = "Select the pasted text" })
 
--- window resize
-map("n", "<leader>+", "v:count ? '<C-w>+' : '2<C-w>+'", { expr = true })
-map("n", "<leader>-", "v:count ? '<C-w>-' : '2<C-w>-'", { expr = true })
-map("n", "<leader>>", "v:count ? '<C-w>>' : '4<C-w>>'", { expr = true })
-map("n", "<leader><", "v:count ? '<C-w><' : '4<C-w><'", { expr = true })
-
 -- diagnostic
 map("n", "<leader>df", vim.diagnostic.open_float, { desc = "[D]iagnostic [F]loat" })
 map("n", "<leader>dn", vim.diagnostic.goto_prev, { desc = "Goto [P]revious [D]iagnostic" })
