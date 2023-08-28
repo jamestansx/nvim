@@ -68,14 +68,6 @@ map("n", "<leader>-", "v:count ? '<C-w>-' : '2<C-w>-'", { expr = true })
 map("n", "<leader>>", "v:count ? '<C-w>>' : '4<C-w>>'", { expr = true })
 map("n", "<leader><", "v:count ? '<C-w><' : '4<C-w><'", { expr = true })
 
--- easy window switching with number tags
-map("n", "<M-1>", "1<C-w>w", { desc = "Switch to window tag 1" })
-map("n", "<M-2>", "2<C-w>w", { desc = "Switch to window tag 2" })
-map("n", "<M-3>", "3<C-w>w", { desc = "Switch to window tag 3" })
-map("n", "<M-4>", "4<C-w>w", { desc = "Switch to window tag 4" })
-map("n", "<M-5>", "5<C-w>w", { desc = "Switch to window tag 5" })
-map("n", "<M-6>", "6<C-w>w", { desc = "Switch to window tag 6" })
-
 -- diagnostic
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "[C]ode [D]iagnostic" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto previous [D]iagnostic" })
