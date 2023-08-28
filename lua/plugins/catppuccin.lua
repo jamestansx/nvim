@@ -13,11 +13,17 @@ return {
 			all = function(colors)
 				local U = require("catppuccin.utils.colors")
 				local C = require("catppuccin.palettes").get_palette(vim.g.catppuccin_flavour)
-				return {}
+				return {
+					["@lsp.type.comment.lua"] = {}, -- don't override treesitter url highlight
+				}
 			end,
 		},
 		integrations = {
 			notify = true,
+			native_lsp = {
+				enabled = true,
+				underlines = { errors = { "undercurl" } },
+			},
 		},
 	},
 }
