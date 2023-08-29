@@ -16,24 +16,24 @@ end
 local function make_floating_popup_option(winid)
 	local win_config = vim.api.nvim_win_get_config(winid)
 
+	local anchor = win_config.anchor
 	local height = win_config.height
-	local anchor = vim.split(win_config.anchor, "")
-	local col = anchor[2] == "W" and 0 or 1
+	local col = anchor:sub(-1) == "W" and 0 or 1
 	local row
 
 	-- only display below the cursor if float win can't
 	-- fit the upper cursor
 	if vim.fn.winline() <= height then
-		anchor[1] = "N"
+		anchor = anchor:gsub("^%a", "N")
 		row = 1
 	else
-		anchor[1] = "S"
+		anchor = anchor:gsub("^%a", "S")
 		row = 0
 	end
 
 	return {
 		relative = "cursor",
-		anchor = table.concat(anchor, ""),
+		anchor = anchor,
 		col = col,
 		row = row,
 	}
