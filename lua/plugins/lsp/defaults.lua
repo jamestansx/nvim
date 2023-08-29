@@ -7,12 +7,8 @@ end
 
 M.capabilities = (function() return vim.lsp.protocol.make_client_capabilities() end)()
 
-M.handlers = (function()
-	local handlers = vim.lsp.handlers
-
-	handlers["textDocument/signatureHelp"] = require("plugins.lsp.handlers").signature_help
-
-	return handlers
-end)()
+M.handlers = {
+	["textDocument/signatureHelp"] = require("plugins.lsp.handlers").signature_help,
+}
 
 return M
