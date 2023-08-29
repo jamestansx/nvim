@@ -19,6 +19,7 @@ return {
 			end,
 		},
 		integrations = {
+			fidget = true,
 			notify = true,
 			native_lsp = {
 				enabled = true,
